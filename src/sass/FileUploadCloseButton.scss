@@ -1,0 +1,36 @@
+@import  "./common.scss";
+@import  "./FileUpload.config.scss";
+
+@function fetch($key) {
+  @return map-get($close-button,
+    $key);
+}
+
+$button-config       : fetch(button);
+$button-hover-config : fetch(button-hover);
+$button-area-config  : fetch(container);
+
+$button-keys: 
+  width height border-radius border font-size color cursor;
+$button-hover-keys:
+  border color background-color;
+
+.close-button {
+  @include map-to-attrs($button-config, 
+    $button-keys);
+  @include css3-flex-with-config(map-get($button-config,
+    flex-conf));
+  &:hover {
+    @include map-to-attrs($button-hover-config,
+      $button-hover-keys);
+  }
+}
+
+$button-area-keys: margin-left margin-right;
+
+.close-button-area {
+  @include map-to-attrs($button-area-config, 
+    $button-area-keys);
+  @include css3-flex-with-config(map-get($button-area-config, 
+    flex-conf));
+}

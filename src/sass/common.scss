@@ -1,0 +1,88 @@
+$CSS3_PREFIXES : -webkit- -moz- -ms- -o- '';
+$CSS3_DISPLAY_PREFIXES : -webkit- '';
+$CSS3_ALIGN_PREFIXES : -webkit- '';
+
+$flex-float : (
+  display: flex,
+  flex-direction: row
+);
+
+.invisible-display {
+  display: none;
+}
+
+
+@mixin css3($property, $value) {
+  @each $prefix in $CSS3_PREFIXES { 
+    #{$prefix}#{$property}: $value;
+  }
+}
+
+@mixin css3-display($value) {
+  @each $prefix in $CSS3_DISPLAY_PREFIXES {
+    display: #{$prefix}#{$value};
+  }
+}
+
+@mixin css3-flex($property, $value) {
+  @each $prefix in $CSS3_ALIGN_PREFIXES { 
+    #{$prefix}#{$property}: $value;
+  }
+}
+
+@mixin css3-flex-with-config($config) {
+  @each $key, $value in $config {
+    @if ($key == "display") { 
+      @include css3-display($value);
+    }
+    @else {
+      @include css3-flex($key, $value);
+    }
+  }
+}
+
+@mixin map-to-attrs($map, $names) {
+  @each $name in $names {
+    #{$name}: map-get($map, $name);
+  }
+}
+
+@mixin layout-with-inherited-height($width) {
+  width: $width;
+  height: inherit;
+}
+
+@function is-last($n, $list) {
+  $len: length($list); 
+  @if ($n == $len ) {
+    @return true;
+  } 
+  @else if ($n > $len) {
+    @error "out of range";
+  }
+  @else {
+    @return false;
+  }
+}
+
+@function map-get-in-with-nth-key($map, $n, $keys...) {
+  @if (is-last($n, $keys)) {
+    @return map-get($map, nth($keys, $n));
+  }
+  @else {
+    $res: map-get($map, nth($keys,
+      $n));
+    @if ($res == null) {
+      @return $res;
+    }
+    @else {
+      @return map-get-in-with-nth-key($res,
+        $n + 1,
+        $keys...);
+    }
+  }
+}
+
+@function map-get-in($map, $keys...) {
+  @return map-get-in-with-nth-key($map, 1, $keys...); 
+}

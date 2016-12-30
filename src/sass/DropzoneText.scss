@@ -1,0 +1,17 @@
+@import "./common.scss";
+
+$DROPZONE_TEXT_MARGIN_TOP : 0px;
+
+$DROPZONE_TEXT_CONFIG	  : ( 
+  justify-content: center,
+  align-items: center 
+);
+
+.dropzone-text {
+  margin-top: $DROPZONE_TEXT_MARGIN_TOP;
+  height: inherit;
+  @include css3-display(flex);
+  @each  $attr, $value in $DROPZONE_TEXT_CONFIG  {
+    @include css3-flex($attr, $value);
+  }	  	
+}

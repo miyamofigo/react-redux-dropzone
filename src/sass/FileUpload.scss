@@ -1,0 +1,15 @@
+@import "./common.scss";
+@import "./FileUpload.config.scss";
+
+$file-upload-config: $file-upload;
+
+$file-upload-keys:
+  height margin-top border;
+
+.file-upload {
+  @include map-to-attrs($file-upload-config, 
+    $file-upload-keys);
+  @include css3-flex-with-config(map-get($file-upload-config,
+    flex-conf));
+}
+

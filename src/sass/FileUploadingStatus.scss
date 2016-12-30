@@ -1,0 +1,6 @@
+@import "./FileUpload.config.scss";
+
+.file-upload-container {
+  margin-top: map-get($file-upload-container,
+    margin-top);
+}

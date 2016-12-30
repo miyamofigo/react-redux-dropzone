@@ -1,0 +1,71 @@
+@import "./common.scss";
+@import "./FileUpload.config.scss";
+
+@function fetch($key) {
+  @return map-get($progress,
+    $key);
+}
+
+$progress-bar-config        : fetch(progress-bar);
+$progress-completed-config  : fetch(completed);
+$progress-failed-config     : fetch(failed);
+$progress-value-config      : fetch(value);
+$progress-config            : fetch(container);
+$line-stroke-config         : map-get($progress-bar-config,
+                                line-stroke);
+
+.progress-bar {
+  @include layout-with-inherited-height(map-get($progress-bar-config,
+    width));
+}
+
+.progress-completed {
+  @include layout-with-inherited-height(map-get($progress-completed-config,
+    width));
+  @include css3-flex-with-config(map-get($progress-completed-config,
+    flex-conf));
+  span {
+   font-size: map-get-in($progress-completed-config, 
+     span, 
+     font-size);
+  }
+}
+
+.progress-failed {
+  @include layout-with-inherited-height(map-get($progress-failed-config,
+    width));
+  @include css3-flex-with-config(map-get($progress-failed-config,
+    flex-conf));
+  span {
+   font-size: map-get-in($progress-failed-config, 
+     span, 
+     font-size);
+  }
+}
+
+
+.progress-value {
+  margin-left: map-get($progress-value-config, 
+    margin-left);
+  @include css3-flex-with-config(map-get($progress-value-config,
+    flex-conf));
+  span {
+   font-size: map-get-in($progress-value-config, 
+     span, 
+     font-size);
+  }
+}
+
+.progress {
+  @include layout-with-inherited-height(map-get($progress-config,
+    width));
+  @include css3-flex-with-config(map-get($progress-config,
+    flex-conf));
+}
+
+$line-sroke-keys: stroke stroke-width stroke-opacity stroke-dasharray;
+
+.line-stroke {
+  @include map-to-attrs($line-stroke-config,
+    $line-sroke-keys);
+}

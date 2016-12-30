@@ -1,0 +1,24 @@
+$DROPZONE_BORDER : 2px dotted grey;
+
+@mixin build-dropzone($border) {
+  @extend .dropzone-base;
+  border: $border;
+}
+
+.dropzone {
+  @include build-dropzone($DROPZONE_BORDER);
+}
+
+$DROPZONE_WIDTH : inherit; 
+$DROPZONE_HEIGHT : 100px; 
+
+.dropzone-base {
+  width: $DROPZONE_WIDTH;
+  height: $DROPZONE_HEIGHT;
+}
+
+$DROPZONE_BORDER_ACTIVE : 5px dotted black;
+
+.dropzone-active {
+  @include build-dropzone($DROPZONE_BORDER_ACTIVE);
+}

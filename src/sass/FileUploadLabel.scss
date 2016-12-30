@@ -1,0 +1,53 @@
+@import "./common.scss";
+@import "./FileUpload.config.scss";
+
+
+@function fetch($attr) {
+  @return map-get($file-upload-label,
+    $attr);
+}
+
+$label-elm-base-config: fetch(base);
+$file-name-config     : fetch(file-name);
+$file-size-config     : fetch(file-size);
+$label-config         : fetch(container);
+
+.label-elm-base {
+  height: map-get($label-elm-base-config, 
+    height);
+  @include css3-flex-with-config(map-get($label-elm-base-config,
+    flex-conf));
+  span {
+    font-size: map-get-in($label-elm-base-config,
+      span,
+      font-size);
+  }
+}
+
+$span-keys: display overflow text-overflow white-space;
+
+.file-name {
+  width: map-get($file-name-config, 
+    width);
+  @extend .label-elm-base;
+  span {
+    @include map-to-attrs(map-get($file-name-config,
+      span),
+      $span-keys);
+  }
+}
+
+.file-size {
+  width: map-get($file-size-config,
+    width);
+  @extend .label-elm-base;
+}
+
+$label-attr-keys: width height margin-left;
+
+.file-upload-label {
+  @include map-to-attrs($label-config,
+    $label-attr-keys);
+  @include css3-flex-with-config(map-get($label-config,
+    flex-conf));
+}
